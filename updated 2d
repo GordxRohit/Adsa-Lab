@@ -1,0 +1,139 @@
+#include <stdio.h>
+#define MAX 50
+
+int main() {
+    int a[MAX][MAX], b[MAX][MAX], result[MAX][MAX];
+    int r = 0, c = 0, r2, c2;
+    int choice, i, j, k;
+
+    while(1) {
+        printf("\n----- 2D Array Menu -----\n");
+        printf("1. Create 2D Matrix\n");
+        printf("2. Addition of 2D\n");
+        printf("3. Transpose of Matrix\n");
+        printf("4. Multiplication of Matrix\n");
+        printf("5. Exit\n");
+        printf("Enter choice: ");
+        scanf("%d", &choice);
+
+        switch(choice) {
+            case 1: // Create Matrix
+                printf("Enter number of rows: ");
+                scanf("%d", &r);
+                printf("Enter number of columns: ");
+                scanf("%d", &c);
+
+                // Validation
+                if(r <= 0 || c <= 0) {
+                    printf("Rows and Columns must be greater than 0!\n");
+                    r = 0;  // reset
+                    c = 0;
+                    break;
+                }
+
+                printf("Enter elements of the matrix:\n");
+                for(i = 0; i < r; i++) {
+                    for(j = 0; j < c; j++) {
+                        scanf("%d", &a[i][j]);
+                    }
+                }
+                printf("Matrix Created Successfully.\n");
+                break;
+
+            case 2: // Addition
+                if(r == 0 || c == 0) {
+                    printf("Please create matrix first!\n");
+                    break;
+                }
+
+                printf("Enter second matrix (%d x %d):\n", r, c);
+                for(i = 0; i < r; i++) {
+                    for(j = 0; j < c; j++) {
+                        scanf("%d", &b[i][j]);
+                    }
+                }
+
+                printf("\nAddition Result:\n");
+                for(i = 0; i < r; i++) {
+                    for(j = 0; j < c; j++) {
+                        printf("%d\t", a[i][j] + b[i][j]);
+                    }
+                    printf("\n");
+                }
+                break;
+
+            case 3: // Transpose
+                if(r == 0 || c == 0) {
+                    printf("Please create matrix first!\n");
+                    break;
+                }
+
+                printf("\nTranspose of Matrix:\n");
+                for(i = 0; i < c; i++) {
+                    for(j = 0; j < r; j++) {
+                        printf("%d\t", a[j][i]);
+                    }
+                    printf("\n");
+                }
+                break;
+
+            case 4: // Multiplication
+                if(r == 0 || c == 0) {
+                    printf("Please create matrix first!\n");
+                    break;
+                }
+
+                printf("Enter rows of second matrix: ");
+                scanf("%d", &r2);
+                printf("Enter columns of second matrix: ");
+                scanf("%d", &c2);
+
+                if(r2 <= 0 || c2 <= 0) {
+                    printf("Rows and Columns must be greater than 0!\n");
+                    break;
+                }
+
+                // Multiplication condition: columns of first == rows of second
+                if(c != r2) {
+                    printf("Multiplication not possible!\n");
+                    printf("Columns of first matrix must be equal to rows of second matrix.\n");
+                    break;
+                }
+
+                printf("Enter elements of second matrix (%d x %d):\n", r2, c2);
+                for(i = 0; i < r2; i++) {
+                    for(j = 0; j < c2; j++) {
+                        scanf("%d", &b[i][j]);
+                    }
+                }
+
+                // Multiplication logic
+                for(i = 0; i < r; i++) {
+                    for(j = 0; j < c2; j++) {
+                        result[i][j] = 0;
+                        for(k = 0; k < c; k++) {
+                            result[i][j] += a[i][k] * b[k][j];
+                        }
+                    }
+                }
+
+                printf("\nMultiplication Result:\n");
+                for(i = 0; i < r; i++) {
+                    for(j = 0; j < c2; j++) {
+                        printf("%d\t", result[i][j]);
+                    }
+                    printf("\n");
+                }
+                break;
+
+            case 5:
+                printf("Exiting...\n");
+                return 0;
+
+            default:
+                printf("Invalid choice!\n");
+        }
+    }
+
+    return 0;
+}
