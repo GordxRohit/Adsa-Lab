@@ -1,6 +1,6 @@
 #include <stdio.h>      // for printf and scanf
 #include <stdlib.h>     // for malloc and free
-#include <conio.h>      // for Dev C++ compatibility
+#include <conio.h>     
 
 // Structure of a single node
 struct Node {
