@@ -70,4 +70,20 @@ int main() {
         table[i] = NULL;
 
     while(1) {
-        printf("\n1.Insert 2.Display 3.Exit\n
+        printf("\n1.Insert 2.Display 3.Exit\nChoice: ");
+        scanf("%d", &ch);
+
+        if(ch == 1) {
+            printf("Enter value: ");
+            scanf("%d", &key);
+            insert(key);
+        }
+        else if(ch == 2)
+            display();
+        else if(ch == 3)
+            break;
+        else
+            printf("Invalid\n");
+    }
+    return 0;
+}
