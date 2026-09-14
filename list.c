@@ -7,6 +7,7 @@ struct Node {
     struct Node *next;
 };
 
+
 struct Node *adj[V];   // each vertex has its own list
 
 void addEdge(int u, int v) {
