@@ -3,51 +3,53 @@
 #define V 5
 
 struct Node {
-    int data;
+    int vertex;
     struct Node *next;
 };
 
-struct Node *list[V];   // array of lists
+struct Node *adj[V];   // each vertex has its own list
 
 void addEdge(int u, int v) {
-    // add v in u's list
-    struct Node *n1 = (struct Node*)malloc(sizeof(struct Node));
-    n1->data = v;
-    n1->next = list[u];
-    list[u] = n1;
+    // add v to u's list
+    struct Node *new1 = (struct Node*)malloc(sizeof(struct Node));
+    new1->vertex = v;
+    new1->next = adj[u];
+    adj[u] = new1;
 
-    // add u in v's list (undirected)
-    struct Node *n2 = (struct Node*)malloc(sizeof(struct Node));
-    n2->data = u;
-    n2->next = list[v];
-    list[v] = n2;
+    // undirected → also add u to v's list
+    struct Node *new2 = (struct Node*)malloc(sizeof(struct Node));
+    new2->vertex = u;
+    new2->next = adj[v];
+    adj[v] = new2;
 }
 
 void display() {
     int i;
-    struct Node *t;
-    printf("\nAdjacency List:\n");
+    struct Node *temp;
+
+    printf("\nAdjacency List:\n\n");
     for(i = 0; i < V; i++) {
-        printf("%d -> ", i);
-        t = list[i];
-        while(t != NULL) {
-            printf("%d ", t->data);
-            t = t->next;
+        printf("%d : ", i);
+        temp = adj[i];
+        while(temp != NULL) {
+            printf("%d -> ", temp->vertex);
+            temp = temp->next;
         }
-        printf("\n");
+        printf("NULL\n");
     }
 }
 
 int main() {
     int i, edges, u, v;
 
+    // start with empty lists
     for(i = 0; i < V; i++)
-        list[i] = NULL;     // empty lists
+        adj[i] = NULL;
 
     printf("Enter number of edges: ");
     scanf("%d", &edges);
 
-    printf("Enter edges (u v) between 0 to 4:\n");
+    printf("Enter edges (u v)  [vertices 0 to 4]:\n");
     for(i = 0; i < edges; i++) {
         scanf("%d %d", &u, &v);
         addEdge(u, v);
