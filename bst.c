@@ -6,48 +6,38 @@ struct Node {
     struct Node *left, *right;
 };
 
-// create a new node
-struct Node* create(int val) {
-    struct Node *n = (struct Node*)malloc(sizeof(struct Node));
-    n->data = val;
-    n->left = n->right = NULL;
-    return n;
-}
-
-// insert value in BST
 struct Node* insert(struct Node *root, int val) {
-    if(root == NULL)
-        return create(val);
-
+    if(root == NULL) {
+        struct Node *n = (struct Node*)malloc(sizeof(struct Node));
+        n->data = val;
+        n->left = n->right = NULL;
+        return n;
+    }
     if(val < root->data)
         root->left = insert(root->left, val);
-    else if(val > root->data)
+    else
         root->right = insert(root->right, val);
-
     return root;
 }
 
-// left → root → right
 void inorder(struct Node *root) {
-    if(root != NULL) {
+    if(root) {
         inorder(root->left);
         printf("%d ", root->data);
         inorder(root->right);
     }
 }
 
-// root → left → right
 void preorder(struct Node *root) {
-    if(root != NULL) {
+    if(root) {
         printf("%d ", root->data);
         preorder(root->left);
         preorder(root->right);
     }
 }
 
-// left → right → root
 void postorder(struct Node *root) {
-    if(root != NULL) {
+    if(root) {
         postorder(root->left);
         postorder(root->right);
         printf("%d ", root->data);
@@ -67,15 +57,14 @@ int main() {
         root = insert(root, val);
     }
 
-    printf("\nInorder   : ");
+    printf("Inorder: ");
     inorder(root);
 
-    printf("\nPreorder  : ");
+    printf("\nPreorder: ");
     preorder(root);
 
-    printf("\nPostorder : ");
+    printf("\nPostorder: ");
     postorder(root);
 
-    printf("\n");
     return 0;
 }
